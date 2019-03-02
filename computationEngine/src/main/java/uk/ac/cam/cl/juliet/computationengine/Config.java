@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,29 +20,42 @@ public class Config {
 
     private boolean alwaysAttended = false,
             checkEthernet = true,
-            samplingFrequencyMode,
+            samplingFrequencyMode = true,
             intervalMode = false,
             logOn = false,
             sleepMode = false,
-            gpsOn = false,
-            housekeeping,
-            syncGPS,
+            housekeeping = false,
+            syncGPS = false,
             iridium = false;
-    private int maxDepthToGraph,
-            nADCSamples,
-            nData,
+    private int maxDepthToGraph = 200,
+            nADCSamples = 40000,
+            nData = 0,
             watchDogTaskSecs = 3600,
-            interChirpDelay,
-            settleCycles,
+            interChirpDelay = 50,
+            settleCycles = 0,
             nSubBursts = 10,
-            average,
-            repSecs,
+            average = 0,
+            gpsOn = 0,
+            repSecs = 300,
             maxDataFileLength = 10000000,
-            nAttenuators;
-    private List<Integer> triples = new ArrayList<>(),
-            attenuator1 = new ArrayList<>(),
-            afGain = new ArrayList<>();
-    private String reg00, reg01, reg02, reg0B, reg0C, reg0D, reg0E;
+            nAttenuators = 1;
+    private List<Integer> triples = new ArrayList<>();
+    private List<Integer> attenuator1 = new ArrayList<>(Arrays.asList(30, 30, 30, 30));
+    private List<Integer> afGain = new ArrayList<>(Arrays.asList(6, 6, 6, 6));
+    private String reg00 = "00000008",
+            reg01 = "000C0820",
+            reg02 = "0D1F41C8",
+            reg0B = "6666666633333333",
+            reg0C = "0000431C0000431C",
+            reg0D = "13881388",
+            reg0E = "08B500004CCCCCCD";
+
+    /**
+     * Creates a {@code Config} object and initialises the values from the specified function
+     *
+     * <p>Getters and Setters are supplied for all of the fields in the example {@code Config.ini}
+     */
+    public Config() {}
 
     /**
      * Creates a {@code Config} object and initialises the values from the specified function
@@ -118,9 +132,11 @@ public class Config {
                         nAttenuators = Integer.parseInt(rhs);
                         break;
                     case "Attenuator1":
+                        attenuator1.clear();
                         for (String s : rhs.split(",")) attenuator1.add(Integer.parseInt(s));
                         break;
                     case "AFGain":
+                        afGain.clear();
                         for (String s : rhs.split(",")) afGain.add(Integer.parseInt(s));
                         break;
                     case "SleepMode":
@@ -306,7 +322,7 @@ public class Config {
                         + ";   Time out for GPS receiver for each burst (0-255 seconds)?\n"
                         + ";   Default is 0 - do not attempt to obtain fix before each burst. \n");
 
-        builder.append("GPSon=").append(gpsOn ? "1" : "0").append("\n");
+        builder.append("GPSon=").append(gpsOn).append("\n");
 
         builder.append(
                 ";\n"
@@ -1007,7 +1023,7 @@ public class Config {
      *
      * @return gpsOn
      */
-    public boolean getGPSOn() {
+    public int getGPSOn() {
         return gpsOn;
     }
 
@@ -1021,7 +1037,7 @@ public class Config {
      *
      * @param gps mode to be set
      */
-    public void setGPSOn(boolean gps) {
+    public void setGPSOn(int gps) {
         gpsOn = gps;
     }
 

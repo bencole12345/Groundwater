@@ -27,6 +27,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import uk.ac.cam.cl.juliet.R;
+import uk.ac.cam.cl.juliet.computationengine.Config;
 import uk.ac.cam.cl.juliet.connection.ConnectionSimulator;
 import uk.ac.cam.cl.juliet.data.AttenuatorSettings;
 import uk.ac.cam.cl.juliet.dialogs.AttenuatorsDialog;
@@ -338,6 +339,10 @@ public class SettingsFragment extends Fragment
         // TODO: Implement this
         // TODO: we need a way to build a config file by setting params, then let the Config class
         //       write those params to a file.
+
+        Config config = new Config();
+
+        ConnectionSimulator.getInstance().sendConfigurations(config);
     }
 
     @Override
