@@ -4,6 +4,10 @@
 
 The central repository for Team Juliet's project, the Groundwater App.
 
+See a presentation about the app:
+
+[![Group Juliet - Groundwater App Presentation](http://img.youtube.com/vi/lPbtp1cjT0g/0.jpg)](http://www.youtube.com/watch?v=lPbtp1cjT0g "Group Juliet - Groundwater app")
+
 
 ## Testing
 ------------------------
